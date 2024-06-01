@@ -6,13 +6,11 @@ namespace Catalog.API.Data
 {
     public class CatalogContextSeed : ICatalogContextSeed
     {
-        public async void SeedDataAsync(IMongoCollection<Product> productCollection)
+        public async Task SeedDataAsync(IMongoCollection<Product> productCollection)
         {
             bool existProduct = productCollection.Find(x => true).Any();
             if (!existProduct)
-            {
                 await productCollection.InsertManyAsync(GetProducts());
-            }
         }
 
         public static IEnumerable<Product> GetProducts()

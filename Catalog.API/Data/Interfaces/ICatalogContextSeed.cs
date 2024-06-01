@@ -5,6 +5,6 @@ namespace Catalog.API.Data
 {
     public interface ICatalogContextSeed
     {
-        void SeedDataAsync(IMongoCollection<Product> productCollection);
+        Task SeedDataAsync(IMongoCollection<Product> productCollection);
     }
 }

@@ -5,7 +5,9 @@ namespace Catalog.API.Data
 {
     public class CatalogContext : ICatalogContext
     {
-        public CatalogContext(IConfiguration configuration)
+        public IMongoCollection<Product> Products { get; }
+
+        public CatalogContext(IConfiguration configuration, ICatalogContextSeed catalogContextSeed)
         {
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
@@ -13,9 +15,12 @@ namespace Catalog.API.Data
 
             Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
 
-            CatalogContextSeed.SeedData(Products);
+            InitializeAsync(catalogContextSeed).GetAwaiter().GetResult();
         }
 
-        public IMongoCollection<Product> Products {  get; }
+        private async Task InitializeAsync(ICatalogContextSeed catalogContextSeed)
+        {
+            await catalogContextSeed.SeedDataAsync(Products);
+        }
     }
 }
