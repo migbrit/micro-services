@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 builder.Services.AddScoped<ICatalogContextSeed, CatalogContextSeed>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
