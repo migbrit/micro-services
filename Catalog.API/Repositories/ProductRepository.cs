@@ -12,12 +12,12 @@ namespace Catalog.API.Repositories
             _catalogContext = catalogContext;
         }
 
-        public async Task CreateProduct(Product product)
+        public async Task CreateProductAsync(Product product)
         {
             await _catalogContext.Products.InsertOneAsync(product);
         }
 
-        public async Task<bool> DeleteProduct(string id)
+        public async Task<bool> DeleteProductAsync(string id)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Id, id);
 
@@ -26,7 +26,7 @@ namespace Catalog.API.Repositories
             return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
 
-        public async Task<bool> UpdateProduct(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
             var updateResult = await _catalogContext.Products.ReplaceOneAsync(
                 filter: p => p.Id == product.Id, replacement: product);
@@ -34,17 +34,17 @@ namespace Catalog.API.Repositories
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
 
-        public async Task<Product> GetProduct(string id)
+        public async Task<Product> GetProductAsync(string id)
         {
             return await _catalogContext.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _catalogContext.Products.Find(p => true).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCategory(string category)
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(string category)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter
                 .Eq(p => p.Category, category);
@@ -52,7 +52,7 @@ namespace Catalog.API.Repositories
             return await _catalogContext.Products.Find(filter).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByName(string name)
+        public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter
                 .Eq(p => p.Name, name);
