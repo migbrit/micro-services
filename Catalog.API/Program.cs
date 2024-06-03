@@ -1,3 +1,4 @@
+using Catalog.API;
 using Catalog.API.Data;
 using Catalog.API.Repositories;
 
@@ -11,6 +12,10 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 
+//DB Config
+var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
+string connectionString = databaseSettings?.ConnectionString ?? "";
+string databaseName = databaseSettings?.DatabaseName ?? "";
 
 // Add services to the container.
 
@@ -19,8 +24,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICatalogContext, CatalogContext>();
-builder.Services.AddScoped<ICatalogContextSeed, CatalogContextSeed>();
+builder.Services.AddSingleton<ICatalogContext>(new CatalogContext(connectionString, databaseName));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
