@@ -3,8 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-Catalog.API/appsettings.json
+# Ignore appsettings files
 Basket.API/appsettings.json
+Basket.API/appsettings.Development.json
+Catalog.API/appsettings.json
+Catalog.API/appsettings.Development.json
+
 
 # User-specific files
 *.rsuser
