@@ -24,9 +24,9 @@ namespace Basket.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ShoppingCart>> UpdateBasket(ShoppingCart basket)
+        public async Task<ActionResult<ShoppingCart>> SetBasket(ShoppingCart basket)
         {
-            return Ok(await _basketRepository.UpdateBasketAsync(basket)); 
+            return Ok(await _basketRepository.SetBasketAsync(basket)); 
         }
 
         [HttpDelete("{userName}", Name = "DeleteBasket")]

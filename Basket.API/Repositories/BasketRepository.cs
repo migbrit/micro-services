@@ -20,7 +20,7 @@ namespace Basket.API.Repositories
             return JsonSerializer.Deserialize<ShoppingCart>(basket);
         }
 
-        public async Task<ShoppingCart?> UpdateBasketAsync(ShoppingCart basket)
+        public async Task<ShoppingCart?> SetBasketAsync(ShoppingCart basket)
         {
             await _redisCache.SetStringAsync(basket.UserName, JsonSerializer.Serialize(basket));
 
