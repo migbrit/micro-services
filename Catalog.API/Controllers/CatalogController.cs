@@ -78,7 +78,10 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteProductById(string id)
         {
-            return Ok(await _productRepository.DeleteProductAsync(id));
+            if (!await _productRepository.DeleteProductAsync(id))
+                return NotFound();
+
+            return NoContent();
         }
     }
 }
