@@ -2,13 +2,6 @@ using Discount.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure App to use multiple configuration files
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-    .AddEnvironmentVariables();
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -32,3 +25,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

@@ -42,7 +42,7 @@ namespace Discount.API.Repositories
             var connection = GetConnectionPostgreSQL();
 
             var affected = await connection
-                .ExecuteAsync("UPDATE FROM Coupon SET ProductName = @ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id",
+                .ExecuteAsync("UPDATE coupon SET productname = @ProductName, description = @Description, amount = @Amount WHERE id = @Id",
                 new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount, Id = coupon.Id });
 
             if (affected == 0) return false;
